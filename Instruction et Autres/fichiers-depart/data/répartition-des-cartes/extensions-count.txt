@@ -1,0 +1,12 @@
+"Cartes de base" Core : 142
+"La Malédiction de Naxxramas" Naxx : 30
+"Le Mont Rochenoire" Brm : 31
+"La Ligue des Explorateurs" Loe : 45
+"Gobelins et Gnomes" Gvg : 123
+"Le Grand Tournoi" Tgt : 132
+"Expert-1" Expert1 : 245
+"Récompenses" Reward : 2
+"Promotions" Promo : 2
+"Nouvelles Apparences de Héros" Heroskins : 3
+
+TOTAL : 755

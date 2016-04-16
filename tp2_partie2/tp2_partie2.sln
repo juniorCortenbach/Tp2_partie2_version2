@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tp2_partie2", "tp2_partie1\tp2_partie2.csproj", "{C5022A73-C09A-4B4B-BC5B-AF02FAEF3874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8326A982-2A4F-4C8D-895C-7F72110B8D51}"
+	ProjectSection(SolutionItems) = preProject
+		tp2_partie1\bin\Debug\cards-collectible.xml = tp2_partie1\bin\Debug\cards-collectible.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsUnitaires", "TestsUnitaires\TestsUnitaires.csproj", "{1754DB0A-431F-466E-8CA8-D6EC5DE4A803}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5022A73-C09A-4B4B-BC5B-AF02FAEF3874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5022A73-C09A-4B4B-BC5B-AF02FAEF3874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5022A73-C09A-4B4B-BC5B-AF02FAEF3874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5022A73-C09A-4B4B-BC5B-AF02FAEF3874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1754DB0A-431F-466E-8CA8-D6EC5DE4A803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1754DB0A-431F-466E-8CA8-D6EC5DE4A803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1754DB0A-431F-466E-8CA8-D6EC5DE4A803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1754DB0A-431F-466E-8CA8-D6EC5DE4A803}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+Minion (Serviteur) : 496
+Spell (Sort) : 224
+Weapon (Arme) : 23
+
+Hero (Héro) : 12
+
+TOTAL : 755 (743 sans Hero)

@@ -1,0 +1,7 @@
+Free (Basique) : 68
+Common (Commune) : 315
+Rare (Rare) : 182
+Epic (Épique) : 98
+Legendary (Légendaire) : 92
+
+TOTAL : 755 (743 sans Hero)

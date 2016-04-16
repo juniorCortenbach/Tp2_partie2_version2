@@ -1,0 +1,13 @@
+Druid : 49
+Hunter : 51
+Mage : 50
+Paladin : 49
+Priest : 49
+Rogue : 49
+Shaman : 49
+Warlock : 49
+Warrior : 50
+
+TOTAL : 445 (avec héros) ==> 433 (sans héros)
+
+Sans classe (Neutre) : 755 - 445 = 310

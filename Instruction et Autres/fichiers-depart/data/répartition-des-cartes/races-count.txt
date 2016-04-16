@@ -1,0 +1,11 @@
+Beast : 48
+Demon : 21
+Dragon : 20
+Mechanical : 48
+Murloc : 14
+Pirate : 10
+Totem : 4
+
+TOTAL : 165
+
+==> 496 - 165 = 331 serviteurs sans races
