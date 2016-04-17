@@ -521,6 +521,7 @@ namespace tp2_partie1
                 elemRarete = xmlDoc.CreateElement("rarity");
                 elemRarete.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Rarete.ToString();
 
+
                 elemClasse = xmlDoc.CreateElement("PlayerClass");
                 elemClasse.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Classe.ToString();
 

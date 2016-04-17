@@ -102,21 +102,20 @@ namespace tp2_partie1
         /// <returns></returns>
         public Carte RechercherCarteParId(string idCarteRecherchee)
         {
-            if (idCarteRecherchee == null)
-                throw new ArgumentNullException("L'identifiant est inexistant.");
 
            Carte carteATrouve = null;
 
-            if (idCarteRecherchee != null)
-            {
-                idCarteRecherchee = idCarteRecherchee.Trim();
 
-                for (int i = 0; i < this.LesCartes.Length; i++)
+            for (int i = 0; i < this.LesCartes.Length; i++)
+            {
+
+                if (idCarteRecherchee.Trim() == this.LesCartes[i].Id.Trim())
                 {
-                    if (idCarteRecherchee == this.LesCartes[i].Id)
-                        carteATrouve = this.LesCartes[i];
+                    carteATrouve = this.LesCartes[i];
+         
                 }
             }
+
             return carteATrouve;
         }
         /// <summary>

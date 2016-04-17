@@ -94,7 +94,7 @@ namespace tp2_partie1
                 // ===================
                 // Le nom ne doit pas être nul.
                 if (value == null)
-                    throw new ArgumentNullException(null, "Le nom ne doit pas être nul.");
+                    throw new ArgumentNullException("Le nom du deck ne doit pas être nul.");
                 // Retrait des espaces superflus (seulement si le titre n'est pas nul, autrement ça va lever l'exception NullReferenceExcpetion).
                 String nomTrime = value.Trim();
                 // Le nom doit contenir au moins 3 caractères.
@@ -133,7 +133,7 @@ namespace tp2_partie1
         /// </summary>
         public Deck(string nom, Heros heros)
         {
-            this.Nom = nom.Trim();
+            this.Nom = nom;
             this.Heros = heros;
             this.LstCartesAvecQt = new List<DeckEntree>();
         }
@@ -154,22 +154,24 @@ namespace tp2_partie1
 
             if(carteAjoutee == null)
                 throw  new ArgumentNullException("La carte ne doit pas être nulle.");
+   
 
             if(nbCopies == 0)
                 throw new ArgumentOutOfRangeException("Le nombre de copies d'une carte doit être d'au moins 1.");
-
-            if (carteAjoutee.Rarete == CarteRarete.Legendary && nbCopies > 1)
+            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies > 2))
+                throw new ArgumentOutOfRangeException("Le nombre total de copies d'une carte non légendaire doit être d'au plus 2.");
+            if ((carteAjoutee.Rarete == CarteRarete.Legendary) && (nbCopies > 1))
                 throw new ArgumentOutOfRangeException("Le nombre maximal de copies d'une carte légendaire doit être de 1.");
-
+            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies < 2))
+                throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
+            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies < 2))
+                throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
+            if ((carteAjoutee.Rarete == CarteRarete.Legendary) && (nbCopies > 1))
+                throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");            
             if(this.NbTotalCartes == Deck.NbMaxCartesDansDeck)
                 throw new ArgumentException("La quantité de cartes présentes dans le deck ne peut pas dépasser 30.");
 
-            if(carteAjoutee.Rarete != CarteRarete.Legendary && nbCopies > 2)
-                throw new InvalidOperationException("Le nombre total de copies d'une carte non légendaire doit être d'au plus 2.");
-            if(carteAjoutee.Rarete == CarteRarete.Legendary && nbCopies < 1)
-                throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
-            if(nbCopies > Deck.QtMaxCarteNonLegendaire && carteAjoutee.Rarete == CarteRarete.Legendary)
-                throw new ArgumentException("Le nombre de copies d'une même carte ne peut être supérieur à 2.");
+
 
             Carte nouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom, carteAjoutee.Extension,
                 carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe, carteAjoutee.Attaque,
@@ -182,8 +184,16 @@ namespace tp2_partie1
                 Carte secondeNouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom, carteAjoutee.Extension,
                 carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe,carteAjoutee.Attaque,
                 carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
+                this.LstCartesAvecQt.Add(new DeckEntree(secondeNouvelleCarte, 2));
+               
+                if (carteAjoutee.Classe ==HerosClasse.Druid)
+                {
+                    Carte troisièmeNouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom, carteAjoutee.Extension,
+   carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe, carteAjoutee.Attaque,
+   carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
+                    this.LstCartesAvecQt.Add(new DeckEntree(troisièmeNouvelleCarte, 1));
+                }
 
-                this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 2));
             }
 
 
@@ -203,7 +213,7 @@ namespace tp2_partie1
             for (int i = 0; i <= this.LstCartesAvecQt.Count; i++)
             {
                 if (this.LstCartesAvecQt[i].Carte == carteLue)
-                    quantiteCarte++;   
+                    quantiteCarte++;
             }
             
             return quantiteCarte;
@@ -217,14 +227,12 @@ namespace tp2_partie1
 
             if(this.LstCartesAvecQt == null)
                 throw new NullReferenceException("La liste de cartes est nulle.");
+   
 
             for (int i = 0; i < this.LstCartesAvecQt.Count; i++)
             {
-                if(this.LstCartesAvecQt[i].Carte.Id == carteRetiree.Id)
+                if(this.LstCartesAvecQt[i].Carte.Id== carteRetiree.Id)
                 indiceCarte = i;
-                else
-                    throw new InvalidOperationException("La carte n'est pas dans le deck.");
-
             }
 
             if (toutesCopiesRetirees)
@@ -232,6 +240,8 @@ namespace tp2_partie1
             else
                 this.LstCartesAvecQt.Remove(this.LstCartesAvecQt[indiceCarte]);
                 nbCopiesRetirees = 1;
+        
+            
 
             return nbCopiesRetirees;
         }
