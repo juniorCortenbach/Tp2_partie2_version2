@@ -260,7 +260,7 @@ namespace tp2_partie1
             ServiteurRace race;
             CarteType type;
             XmlElement elemCarte = null;
-            int compteurMechanics = 0;
+
 
             for (int i = 0; i < listeElemCarte.Count; i++)
             {
@@ -442,14 +442,12 @@ namespace tp2_partie1
 
         #region ENREGISTRERDECK
 
-
-
         /// <summary>
         /// Permet d'enregistrer les données dans un fichier au format XML à partir d'un tableau d'objets de type "Carte" (sérialisation).
         /// </summary>
-        /// <param name="cheminFichier">Chemin d'accès au fichier dans lequel les données seront sérialisées</param>
-        /// <param name="tabCartes">tableau d’objets de type "arrte" à sérialiser dans le fichier. </param>
-        public static void EnregisterDeck(String cheminFichier, Carte[] tabCartes)
+        /// <param name="cheminFichier">Chemin du fichier</param>
+        /// <param name="deckEnregistrer">Deck enregistrer</param>
+        public static void EnregisterDeck(String cheminFichier, Deck deckEnregistrer)
         {
 
             if (cheminFichier.Length >= 300)
@@ -472,70 +470,65 @@ namespace tp2_partie1
                 Console.WriteLine("Message d'erreur : " + e.Message);
             }
 
+
             // Ajout de la déclaration xml.
             XmlDeclaration xmlDec1 = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null);
             xmlDoc.AppendChild(xmlDec1);
 
             //Cération de l'élément racine du document XMl, soit "listeCartes".
-            XmlElement elemListeCartes = xmlDoc.CreateElement("listeCartes");
+            XmlElement elemListeCartes = xmlDoc.CreateElement("cards");
 
             //Ajout de l'élément "listeCartes" au document XML.
             xmlDoc.AppendChild(elemListeCartes);
 
             //Variables utilitaires pour la création des éléments "Carte" et de ses sous-éléments.
             XmlElement elemAttaque, elemClasse, elemCout, elemDurabilite, elemExtension, elemVie, elemId,
-                elemNom, elemRegexId, elemTexte, elemRarete, elemLstMeca,
+                elemNom, elemTexte, elemRarete,
                  elemRace, elemType, elemCarte;
 
             //Traitement de chaque objet "Carte" du tableau.
-            for (int i = 0; i < tabCartes.Length; i++)
+            for (int i = 0; i < deckEnregistrer.NbTotalCartes; i++)
             {
                 //Création de l'élément "Carte" (ainsi que de son contenu) pour le deck.
                 elemCarte = xmlDoc.CreateElement("card");
 
-                elemAttaque = xmlDoc.CreateElement("attack");
-                elemAttaque.InnerText = tabCartes[i].Attaque + "";
 
                 elemDurabilite = xmlDoc.CreateElement("durability");
-                elemDurabilite.InnerText = tabCartes[i].Durabilite + "";
+                elemDurabilite.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Durabilite.ToString();
+
+                elemAttaque = xmlDoc.CreateElement("attack");
+                elemAttaque.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Attaque.ToString();
+
 
                 elemVie = xmlDoc.CreateElement("health");
-                elemVie.InnerText = tabCartes[i].Vie + "";
+                elemVie.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Vie.ToString();
 
                 elemCout = xmlDoc.CreateElement("cost");
-                elemVie.InnerText = tabCartes[i].Vie + "";
+                elemVie.InnerText =  deckEnregistrer.LstCartesAvecQt[i].Carte.Cout.ToString();
 
                 elemExtension = xmlDoc.CreateElement("set");
-                elemExtension.InnerText = tabCartes[i].Extension.ToString();
+                elemExtension.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Extension.ToString();
 
                 elemId = xmlDoc.CreateElement("id");
-                elemId.InnerText = tabCartes[i].Id;
+                elemId.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Id.ToString();
 
                 elemNom = xmlDoc.CreateElement("name");
-                elemNom.InnerText = tabCartes[i].Nom;
-
-                //Pourquoi créer un tag RegexID
-          //      elemRegexId = xmlDoc.CreateElement("RegexId");
-            //    elemRegexId.InnerText = tabCartes[i].RegexId;
+                elemNom.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Nom;
 
                 elemTexte = xmlDoc.CreateElement("text");
-                elemTexte.InnerText = tabCartes[i].Texte;
+                elemTexte.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Texte;
 
                 elemRarete = xmlDoc.CreateElement("rarity");
-                elemRarete.InnerText = tabCartes[i].Rarete.ToString();
-                
-                //POurquoi créer une baillse lstMeca?
-               // elemLstMeca = xmlDoc.CreateElement("LstMeca");
-                //elemLstMeca.InnerText = tabCartes[i].LstMeca + "";
+                elemRarete.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Rarete.ToString();
 
                 elemClasse = xmlDoc.CreateElement("PlayerClass");
-                elemClasse.InnerText = tabCartes[i].Classe + "";
+                elemClasse.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Classe.ToString();
 
                 elemRace = xmlDoc.CreateElement("race");
-                elemRace.InnerText = tabCartes[i].Race + "";
+                elemRace.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Race.ToString();
 
                 elemType = xmlDoc.CreateElement("type");
-                elemType.InnerText = tabCartes[i].Type + "";
+                elemType.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Type.ToString();
 
                 //Ajout des sous-éléments à l'élément "Carte".
                 elemCarte.AppendChild(elemAttaque);
@@ -545,26 +538,31 @@ namespace tp2_partie1
                 elemCarte.AppendChild(elemExtension);
                 elemCarte.AppendChild(elemId);
                 elemCarte.AppendChild(elemNom);
-             //   elemCarte.AppendChild(elemRegexId); ???????????????
                 elemCarte.AppendChild(elemTexte);
                 elemCarte.AppendChild(elemRarete);
-            //    elemCarte.AppendChild(elemLstMeca); ?????????????????
                 elemCarte.AppendChild(elemClasse);
                 elemCarte.AppendChild(elemRace);
                 elemCarte.AppendChild(elemType);
+
+           
 
                 //Ajout de l'élément "Carte" à l'élément "listeCartes".
                 elemListeCartes.AppendChild(elemCarte);
             }
 
+           
+
             //Enregistrement du document XML dans un fichier par sérialisation.
             xmlDoc.Save(cheminFichier);
+
         }
 
         #endregion
 
         #region CHARGERDECK
 
+        
+        /*
         public static Deck[] ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
 
@@ -586,7 +584,7 @@ namespace tp2_partie1
 
 
 
-        }
+        }*/
 
         #endregion
 
