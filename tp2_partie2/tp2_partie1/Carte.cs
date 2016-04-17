@@ -35,6 +35,7 @@ namespace tp2_partie1
         public const byte DurabiliteMax = 8;
 
         #endregion
+
         #region ATTRIBUTS
 
         /// <summary>
@@ -155,7 +156,7 @@ namespace tp2_partie1
                 // Validation du cout d'une carte
                 // ==============================
                 if (value > 20)
-                    throw new ArgumentOutOfRangeException(                        "Le cout de la carte est de 0 et 20, inclusivement.");
+                    throw new ArgumentOutOfRangeException("Le cout de la carte est de 0 et 20, inclusivement.");
                 // Le cout prévue est valide; on la conserve dans l'attribut.
                 this._cout = value;
             }
@@ -212,28 +213,33 @@ namespace tp2_partie1
                 if(idTrime.Contains("+"))
                     throw new ArgumentException("ne peu contenir de plus");
 
-
                 string[] partie = idTrime.Split('_');
-                
-                if(partie[0].Length>6)
+                if(partie[0].Length > 6)
                     throw new ArgumentException("La première partie est trop longue");
-                if (partie[1].Length > 4)
-                    throw new ArgumentException("La deuxième partie est trop longue");
-               
+                if (partie[0].Length < 2)
+                    throw new ArgumentException("La première partie est trop courte");
+                // Create the regular expression
+                string pattern = @"^[0-9]{1,3}[a-zA-Z]+$";
+                Regex regex = new Regex(pattern);
+                string pattern1 = @"[0-9]{1,3}[a-zA-Z]{2,3}";
+                Regex regex1 = new Regex(pattern1);
 
-
-                //Regex qui valide l'id de la carte
-                Regex idCarteRegex = new Regex("[a-zA-Z0-9]{2,6}_[0-9]{1,3}");
-
-
-
-                //Valide que la carte 
-                if (!idCarteRegex.IsMatch(value))
-                {
-                    throw new ArgumentException("L'id doit contenir entre 2 et 6 caractères parmi les lettres minuscules et majuscules et les chiffres de (0 à 9) suivit du caractère de soulignement, _ entre 1 et 3 chiffres de (0 à 9)");
-                }
-
-
+                //if (partie[1].Trim().Length > 3)
+                    //throw new ArgumentException("La deuxième partie est trop longue");
+                    // Compare a string against the regular expressio
+                //if (!(partie[1].Trim().Length > 3) && regex.IsMatch(partie[1]))
+                    //throw new ArgumentException("L'identifiant de la carte est invalide.");
+ 
+                if (!regex.IsMatch(partie[1]) && partie[1].Length > 3)
+                    throw new ArgumentException("L'identifiant de la carte est invalide.");
+                //if (!regex.IsMatch(partie[1]) && !(partie[1].Length > 3))
+                    //throw new ArgumentException("L'identifiant de la carte est invalide."); 
+                if (partie[1].Trim().Length < 1)
+                    throw new ArgumentException("La deuxième partie est trop courte");
+                if(regex1.IsMatch(partie[1]))
+                    throw new ArgumentException("L'identifiant de la carte est invalide.");
+                if (char.IsUpper(partie[1][partie[1].Length - 1]))
+                    throw new ArgumentException("L'identifiant de la carte est invalide.");
                 // L'id prévue est valide; on la conserve dans l'attribut.
                 this._id = idTrime;
             }
@@ -363,7 +369,6 @@ namespace tp2_partie1
 
         #endregion
 
-
         #region CONSTRUCTEUR
 
         public Carte(CarteType type, string id, string nom, CarteExtension extension,
@@ -389,7 +394,6 @@ namespace tp2_partie1
 
         #region MÉTHODES
 
-
         /// <summary>
         /// Permet de comparer deux cartes.
         /// </summary>
@@ -398,7 +402,8 @@ namespace tp2_partie1
         {
             // Le premier critère de tri est l'id des cartes.
             // Note : "CompareTo" est déjà définie pour des nombres.
-            int resComp = this.Id.CompareTo(autreCarte.Id);
+            int resComp = this.Cout.CompareTo(autreCarte.Cout);
+
             // Est-ce que les identifiants sont différents ?
             if (resComp != 0)
             {
@@ -407,13 +412,10 @@ namespace tp2_partie1
                 // Note : Si on veut un tri en ordre décroissant d'id, il faut multiplier par -1.
                 return resComp;
             }
-            else
-            {
                 // Les deux carte ont le même Identifiant.
                 // Le deuxième critère de tri est le nom (insensible à la case et aux accents).
                 return String.Compare(this.Nom, autreCarte.Nom, CultureInfo.CurrentCulture,
                     CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace);
-            }
         }
 
         /// <summary>

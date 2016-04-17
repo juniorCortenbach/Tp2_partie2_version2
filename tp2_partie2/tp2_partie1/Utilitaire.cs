@@ -35,7 +35,6 @@ namespace tp2_partie1
 
         #region MÉTHODES
 
-
         #region CHARGERHEROS
 
         public static Heros[] ChargerHeros(String cheminFichier)
@@ -50,6 +49,12 @@ namespace tp2_partie1
             if (System.Text.RegularExpressions.Regex.IsMatch(cheminFichier, "^[a-zA-Z0-9]_[a-zA-Z0-9]+$"))
             {
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
+            }
+
+            for (int i = 0; i < cheminFichier.Length - 1; i++)
+            {
+                if (cheminFichier[i] == '_')
+                    throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
             }
 
             for (int i = 0; i < cheminFichier.Length - 1; i++)
@@ -204,44 +209,21 @@ namespace tp2_partie1
             if (cheminFichier == null)
                 throw new ArgumentNullException("Le chemin pour accéder au fichier est invalide.");
             if (cheminFichier.Length <= 1)
-                throw new ArgumentException(null, "Le nom du fichier est invalide.");
+                throw new ArgumentException("Le nom du fichier est invalide.");
             if (cheminFichier.Length > 100)
                 throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
-            if (cheminFichier == null)
-            {
-                throw new XmlException();
-            }
-            if (cheminFichier.Contains('_'))
-            {
+            if (cheminFichier.Trim() == "")
+                throw new ArgumentException("Le nom du fichier est invalide.");
+            //if (cheminFichier.Contains('_'))
+                //throw new XmlException("Le fichier n'est pas un fichier XML valide.");
+            Regex regex0 = new Regex(@"[a-zA-Z0-9]*_{1}[a-z]*");
+            Regex regex1 = new Regex(@"[a-zA-Z0-9]*_[a-zA-Z0-9]*_[a-zA-Z0-9]{1,*}.[a-zA-Z]*");
+            if(regex0.IsMatch(cheminFichier))
+                throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
+            if (regex1.IsMatch(cheminFichier))
                 throw new XmlException("Le fichier n'est pas un fichier XML valide.");
-            }
-
-
-            
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
             XmlDocument xmlDoc = new XmlDocument();
-
-
-            try
-            {
-                xmlDoc = new XmlDocument();
-                xmlDoc.Load(cheminFichier);
-            }
-            catch (ArgumentException)
-            {
-                throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
-            }
-
-            catch (Exception e)
-            {
-                throw new ArgumentException(null, "erreur inconnue");
-            }
-
-
-
-
-
-
 
             if (xmlDoc == null)
                 throw new ArgumentNullException(null, "Le nom du fichier ne doit pas être nul.");
