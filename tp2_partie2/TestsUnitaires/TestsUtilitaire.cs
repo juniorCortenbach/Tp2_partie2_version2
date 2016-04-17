@@ -288,7 +288,8 @@ namespace TestsUnitaires
             String chemin = new string('x', 300) + ".xml";
             Utilitaire.ChargerCartes(chemin);
         }
-        /* 
+   
+        
             // EnregisterDeck
             // ==============
 
@@ -351,7 +352,7 @@ namespace TestsUnitaires
                 // du dossier du projet pour les tests.
                 // De plus, exécutez le test de chargement qui lui est associé, soit "TestChargerDeck2".
             }
-
+        /*
             // ChargerDeck
             // ===========
 
@@ -399,7 +400,7 @@ namespace TestsUnitaires
                 Assert.AreEqual(1, deckCharge.ObtenirQtCarte(hData.RechercherCarteParId("LOE_077")));
                 Assert.AreEqual(1, deckCharge.ObtenirQtCarte(hData.RechercherCarteParId("GVG_056")));
                 Assert.AreEqual(0, deckCharge.ObtenirQtCarte(hData.RechercherCarteParId("LOE_061")));
-            }
+            } 
 
             /// <summary>
             /// Tests unitaires pour la méthode "ChargerDeck".

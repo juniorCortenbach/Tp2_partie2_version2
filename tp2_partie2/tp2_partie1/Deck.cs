@@ -135,6 +135,7 @@ namespace tp2_partie1
         {
             this.Nom = nom.Trim();
             this.Heros = heros;
+            this.LstCartesAvecQt = new List<DeckEntree>();
         }
 
         #endregion 
