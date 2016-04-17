@@ -47,15 +47,13 @@ namespace tp2_partie1
                 throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
             // "dossier_invalide/cards-collectible.xml"
             if (System.Text.RegularExpressions.Regex.IsMatch(cheminFichier, "^[a-zA-Z0-9]_[a-zA-Z0-9]+$"))
-            {
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
-            }
 
-            for (int i = 0; i < cheminFichier.Length - 1; i++)
-            {
-                if (cheminFichier[i] == '_')
-                    throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
-            }
+            //for (int i = 0; i < cheminFichier.Length - 1; i++)
+            //{
+            //    if (cheminFichier[i] == '_')
+            //        throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
+            //}
 
             for (int i = 0; i < cheminFichier.Length - 1; i++)
             {
@@ -63,8 +61,15 @@ namespace tp2_partie1
                     throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
             }
 
-            var regex = new Regex(@"^[a-zA-Z0-9_a-zA-Z0-9]+$");
-            if (regex.IsMatch(cheminFichier))
+            byte nbrUnderscore = 0;
+            for (int i = 0; i < cheminFichier.Length - 1; i++)
+            {
+                if (cheminFichier[i] == '_')
+                    nbrUnderscore++;
+            }
+            if (nbrUnderscore == 1)
+                throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
+            if (nbrUnderscore > 1)
                 throw new XmlException("Le fichier n'est pas un fichier XML valide.");
 
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
@@ -195,7 +200,7 @@ namespace tp2_partie1
             return tabHeros;
         }
 
-#endregion 
+        #endregion
 
         #region CHARGERCARTES
 
@@ -214,19 +219,25 @@ namespace tp2_partie1
                 throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
             if (cheminFichier.Trim() == "")
                 throw new ArgumentException("Le nom du fichier est invalide.");
-            //if (cheminFichier.Contains('_'))
-                //throw new XmlException("Le fichier n'est pas un fichier XML valide.");
-            Regex regex0 = new Regex(@"[a-zA-Z0-9]*_{1}[a-z]*");
-            Regex regex1 = new Regex(@"[a-zA-Z0-9]*_[a-zA-Z0-9]*_[a-zA-Z0-9]{1,*}.[a-zA-Z]*");
-            if(regex0.IsMatch(cheminFichier))
+
+            byte nbrUnderscore=0;
+            for (int i = 0; i < cheminFichier.Length-1; i++)
+            {
+                if (cheminFichier[i] == '_')
+                    nbrUnderscore++;
+            }
+            if(nbrUnderscore == 1)
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
-            if (regex1.IsMatch(cheminFichier))
+            if(nbrUnderscore > 1)
                 throw new XmlException("Le fichier n'est pas un fichier XML valide.");
+
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
             XmlDocument xmlDoc = new XmlDocument();
 
             if (xmlDoc == null)
                 throw new ArgumentNullException(null, "Le nom du fichier ne doit pas être nul.");
+
+            xmlDoc.Load(cheminFichier);
             // Récupération de tous les éléments "Cartes".
             XmlNodeList listeElemCarte = xmlDoc.SelectNodes("/cards/card[type!='HERO']");
 
@@ -397,47 +408,48 @@ namespace tp2_partie1
                 {
                     vie = -1;
                 }
-                    // Création de l'objet "Carte" dans le tableau.
-                    tabCartes[i] = new Carte(type, id, nom, extension, rarete, cout, texte, classe, attaque, vie, race,
-                        durabilite);
+                // Création de l'objet "Carte" dans le tableau.
+                tabCartes[i] = new Carte(type, id, nom, extension, rarete, cout, texte, classe, attaque, vie, race,
+                    durabilite);
 
-                    for (int j = 0; j < elemCarte.GetElementsByTagName("mechanics").Count; j++)
+                for (int j = 0; j < elemCarte.GetElementsByTagName("mechanics").Count; j++)
+                {
+                    if (elemCarte.GetElementsByTagName("mechanics")[j].InnerText.Length != 0)
                     {
-                        if (elemCarte.GetElementsByTagName("mechanics")[j].InnerText.Length != 0)
-                        {
-                            string chaineInitial = (elemCarte.GetElementsByTagName("mechanics")[j].InnerText).ToString();
+                        string chaineInitial = (elemCarte.GetElementsByTagName("mechanics")[j].InnerText).ToString();
 
-                            string chaineFormater = "";
-                                  chaineFormater = chaineInitial.Replace("_", " ");
-                chaineFormater =
-                    System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(chaineFormater.ToLower());
+                        string chaineFormater = "";
+                        chaineFormater = chaineInitial.Replace("_", " ");
+                        chaineFormater =
+                            System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(chaineFormater.ToLower());
 
                         chaineFormater = chaineFormater.Replace(" ", "").Trim();
 
-                            tabCartes[i].AjouterMecanique(
-                                (CarteMecanique)Enum.Parse(typeof(CarteMecanique), chaineFormater));
-                        }
+                        tabCartes[i].AjouterMecanique(
+                            (CarteMecanique)Enum.Parse(typeof(CarteMecanique), chaineFormater));
                     }
-
+                }
                 
+
             }
+            Console.Write(tabCartes);
             // On retourne le tableau de cartes créé.
             return tabCartes;
         }
 
 
-#endregion
+        #endregion
 
         #region ENREGISTRERDECK
-        
- 
+
+
 
         /// <summary>
         /// Permet d'enregistrer les données dans un fichier au format XML à partir d'un tableau d'objets de type "Carte" (sérialisation).
         /// </summary>
         /// <param name="cheminFichier">Chemin d'accès au fichier dans lequel les données seront sérialisées</param>
         /// <param name="tabCartes">tableau d’objets de type "arrte" à sérialiser dans le fichier. </param>
-        private static void EnregisterDeck(String cheminFichier, Carte[] tabCartes)
+        public static void EnregisterDeck(String cheminFichier, Carte[] tabCartes)
         {
 
             if (cheminFichier.Length >= 300)
@@ -551,26 +563,18 @@ namespace tp2_partie1
 
         #region CHARGERDECK
 
-        private static void ChargerDeck(string cheminFichier, HearthstoneData hData)
+        public static void ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
-            
+
         }
 
         #endregion
 
         #region ENREGISTRERDECK
-        
-    
 
-        private static void EnregisterDeck(String cheminFichier, HearthstoneData hData)
-        {
-
-
-        }
         #endregion
 
 
         #endregion
-
     }
 }

@@ -61,7 +61,9 @@ namespace tp2_partie1
                 // ===================
                 // Le héro ne doit pas être nul.
                 if (value == null)
-                    throw new ArgumentNullException("Le héro pour le deck ne doit pas être nul.");
+                    throw new ArgumentNullException(null, "Le héro pour le deck ne doit pas être nul.");
+                else
+                    this._heros = value;
             }
         }
 
@@ -71,7 +73,13 @@ namespace tp2_partie1
         public List<DeckEntree> LstCartesAvecQt
         {
             get { return this._lstCartesAvecQt; }
-            set { this._lstCartesAvecQt = value; }
+            set
+            {
+                if (value == null)
+                    throw new NullReferenceException("La quantité est nulle.");
+                else
+                this._lstCartesAvecQt = value;
+            }
         }
 
         /// <summary>
@@ -104,12 +112,7 @@ namespace tp2_partie1
         public byte NbTotalCartes
         {
             get { return this._nbTotalCartes; }
-            set
-            {
-                if(this._nbTotalCartes<1)
-                    throw new ArgumentOutOfRangeException("Le nombre de copies d'une carte doit être d'au moins 1.");
-                this._nbTotalCartes = value;
-            }
+            set { this._nbTotalCartes = value; }
         }
 
         #endregion
@@ -126,11 +129,11 @@ namespace tp2_partie1
         #region CONSTRUCTEUR
 
         /// <summary>
-        /// Constructeur paramétré qui accepte les trois attributs d'un deck.
+        /// Constructeur paramétré qui accepte les deux attributs d'un deck.
         /// </summary>
         public Deck(string nom, Heros heros)
         {
-            this.Nom = nom;
+            this.Nom = nom.Trim();
             this.Heros = heros;
         }
 
@@ -141,18 +144,10 @@ namespace tp2_partie1
         public void AjouterCartes(Carte carteAjoutee, byte nbCopies)
         {
             byte nbCartesLegendaires=0;
-            //Restrictions:
-            // nbCopies en cas de carte légendaire ne peut pas être > ou < que 1.
-            // Une carte ne peut être ajouté si le nombre de cartes déjà présent est 30.
 
-            //Prévoir que la carte ajoutée peut déjà être présente dans le deck et ne pourra
-            //être ajoutée qu'une seule fois, si elle ne s'y retrouve qu'une seule fois.
-
-            //Comment j'fais pour déterminer le nombre de cartes légendaires si
-            //j'peux pas détermienr la rareté des cartes contenues dans le deck?
             for (int i = 0; i < this.NbTotalCartes; i++)
             {
-                if (carteAjoutee.Rarete == CarteRarete.Legendary);
+                if (carteAjoutee.Rarete == CarteRarete.Legendary)
                 nbCartesLegendaires++;
             }
 
@@ -177,13 +172,17 @@ namespace tp2_partie1
 
             Carte nouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom, carteAjoutee.Extension,
                 carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe, carteAjoutee.Attaque,
-                carteAjoutee.Durabilite, carteAjoutee.Race, carteAjoutee.Vie);
+                carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
+
+            this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 1));
 
             if (nbCopies > 1)
             {
                 Carte secondeNouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom, carteAjoutee.Extension,
                 carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe,carteAjoutee.Attaque,
-                carteAjoutee.Durabilite, carteAjoutee.Race, carteAjoutee.Vie);
+                carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
+
+                this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 2));
             }
 
 
@@ -193,9 +192,10 @@ namespace tp2_partie1
         {
             if (this.LstCartesAvecQt == null)
                 throw new ArgumentNullException("La liste de carte ne doit pas être nulle.");
+
             if (carteLue == null)
                 throw new ArgumentNullException("La carte ne doit pas être nulle.");
-
+            
 
             byte quantiteCarte = 0;
 
@@ -214,10 +214,16 @@ namespace tp2_partie1
 
             int indiceCarte = 0;
 
+            if(this.LstCartesAvecQt == null)
+                throw new NullReferenceException("La liste de cartes est nulle.");
+
             for (int i = 0; i < this.LstCartesAvecQt.Count; i++)
             {
-                this.LstCartesAvecQt[i].Carte.Id = carteRetiree.Id;
+                if(this.LstCartesAvecQt[i].Carte.Id == carteRetiree.Id)
                 indiceCarte = i;
+                else
+                    throw new InvalidOperationException("La carte n'est pas dans le deck.");
+
             }
 
             if (toutesCopiesRetirees)

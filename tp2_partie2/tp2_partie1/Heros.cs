@@ -38,7 +38,7 @@ namespace tp2_partie1
         /// L'identifiant du héro.
         /// </summary>
         private string _id;
-         
+
         /// <summary>
         /// Le nom du héro.
         /// </summary>
@@ -63,9 +63,9 @@ namespace tp2_partie1
 
 
         #region CONSTANTES
-       
-       public const byte VieMin = 10;
-       public const byte VieMax=100;
+
+        public const byte VieMin = 10;
+        public const byte VieMax = 100;
 
         #endregion
 
@@ -79,8 +79,8 @@ namespace tp2_partie1
             get { return this._classe; }
             set
             {
-             if(value == HerosClasse.Neutre)
-                 throw new ArgumentException("Un héro ne peut pas avoir la classe neutre");
+                if (value == HerosClasse.Neutre)
+                    throw new ArgumentException("Un héro ne peut pas avoir la classe neutre");
                 this._classe = value;
             }
         }
@@ -130,7 +130,7 @@ namespace tp2_partie1
                 String idTrime = value.Trim();
 
                 // L'id prévue est valide; on la conserve dans l'attribut.
-             this._id = idTrime;
+                this._id = idTrime;
             }
         }
 

@@ -41,7 +41,13 @@ namespace tp2_partie1
         public Carte Carte
         {
             get { return this._carte; }
-            set { this._carte = value; }
+            set
+            {
+                //if (value == null)
+                    //throw new ArgumentNullException("La carte ne doit pas être nulle.");
+                
+                this._carte = value;
+            }
         }
 
         /// <summary>
@@ -63,6 +69,16 @@ namespace tp2_partie1
         /// <param name="qt"></param>
         public DeckEntree(Carte carte, byte qt )
         {
+            if(carte == null)
+                throw new ArgumentNullException("La carte ne doit pas être nulle.");
+
+            if(!(qt > 0))
+                throw new ArgumentOutOfRangeException("La quantité doit être plus grande que 0.");
+            if(!(qt <= 2))
+                throw new ArgumentOutOfRangeException("La quantité ne peut être plus grande que 2.");
+            if(qt > 1 && carte.Rarete == CarteRarete.Legendary)
+                throw new ArgumentOutOfRangeException("La quantité d'une carte légendaire" +
+                                                      "ne peut être plus grande que 1.");
             this._carte = carte;
             this._qt = qt;
         }

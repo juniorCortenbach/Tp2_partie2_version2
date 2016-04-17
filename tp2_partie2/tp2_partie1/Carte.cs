@@ -128,7 +128,7 @@ namespace tp2_partie1
                 // Validation de l'attaque doit être -1 et le type doit être sort
                 // ======================================================
                 if ((this.Type == CarteType.Spell) && (value != -1))
-                      throw new ArgumentOutOfRangeException("Les points d'attaque doivent être à -1 pour une carte qui n'est pas de type serviteur ou arme.");
+                    throw new ArgumentOutOfRangeException("Les points d'attaque doivent être à -1 pour une carte qui n'est pas de type serviteur ou arme.");
 
 
                 // L'attaque prévue est valide; on la conserve dans l'attribut. 
@@ -175,7 +175,7 @@ namespace tp2_partie1
                 if ((this.Type == CarteType.Weapon) && ((value < 1) || (value > 8)))
                     throw new ArgumentOutOfRangeException("La durabilité doit être entre 1 et 8, inclusivement. et le type doit être arme");
                 if ((this.Type != CarteType.Weapon) && (value != -1))
-                    throw new ArgumentOutOfRangeException("Pour les cartes de type (serviteur et sort), la valeur doit être obligatoirement être -1");
+                   throw new ArgumentOutOfRangeException("Pour les cartes de type (serviteur et sort), la valeur doit être obligatoirement être -1");
 
 
                 // La durabilité prévue est valide; on la conserve dans l'attribut. 
@@ -208,13 +208,13 @@ namespace tp2_partie1
                 if (idTrime.Length < 3)
                     throw new ArgumentException("Le nom doit contenir au moins 3 caractères.");
 
-                if(!idTrime.Contains("_"))
+                if (!idTrime.Contains("_"))
                     throw new ArgumentException("Il manque un _");
-                if(idTrime.Contains("+"))
+                if (idTrime.Contains("+"))
                     throw new ArgumentException("ne peu contenir de plus");
 
                 string[] partie = idTrime.Split('_');
-                if(partie[0].Length > 6)
+                if (partie[0].Length > 6)
                     throw new ArgumentException("La première partie est trop longue");
                 if (partie[0].Length < 2)
                     throw new ArgumentException("La première partie est trop courte");
@@ -225,18 +225,18 @@ namespace tp2_partie1
                 Regex regex1 = new Regex(pattern1);
 
                 //if (partie[1].Trim().Length > 3)
-                    //throw new ArgumentException("La deuxième partie est trop longue");
-                    // Compare a string against the regular expressio
+                //throw new ArgumentException("La deuxième partie est trop longue");
+                // Compare a string against the regular expressio
                 //if (!(partie[1].Trim().Length > 3) && regex.IsMatch(partie[1]))
-                    //throw new ArgumentException("L'identifiant de la carte est invalide.");
- 
+                //throw new ArgumentException("L'identifiant de la carte est invalide.");
+
                 if (!regex.IsMatch(partie[1]) && partie[1].Length > 3)
                     throw new ArgumentException("L'identifiant de la carte est invalide.");
                 //if (!regex.IsMatch(partie[1]) && !(partie[1].Length > 3))
-                    //throw new ArgumentException("L'identifiant de la carte est invalide."); 
+                //throw new ArgumentException("L'identifiant de la carte est invalide."); 
                 if (partie[1].Trim().Length < 1)
                     throw new ArgumentException("La deuxième partie est trop courte");
-                if(regex1.IsMatch(partie[1]))
+                if (regex1.IsMatch(partie[1]))
                     throw new ArgumentException("L'identifiant de la carte est invalide.");
                 if (char.IsUpper(partie[1][partie[1].Length - 1]))
                     throw new ArgumentException("L'identifiant de la carte est invalide.");
@@ -269,7 +269,7 @@ namespace tp2_partie1
                 // Validation du nom
                 // ===================
                 // Le nom ne doit pas être nul.
-                if (value == null)
+               if (value == null)
                     throw new ArgumentNullException("Le nom ne doit pas être nul.");
                 // Retrait des espaces superflus (seulement si le titre n'est pas nul, autrement ça va lever l'exception NullReferenceExcpetion).
                 String nomTrime = value.Trim();
@@ -289,9 +289,9 @@ namespace tp2_partie1
             get { return this._race; }
             set
             {
-                if ((this.Type != CarteType.Minion)&&(value != ServiteurRace.Aucune))
+                if ((this.Type != CarteType.Minion) && (value != ServiteurRace.Aucune))
                     throw new ArgumentException("Une carte qui n'est pas de type serviteur ne doit avoir aucune race.");
-          
+
                 this._race = value;
             }
         }
@@ -329,7 +329,7 @@ namespace tp2_partie1
                 // Le titre ne doit pas être nul.
                 if (value != null)
                 {
-                   texteTrime = value.Trim();
+                    texteTrime = value.Trim();
                 }
                 this._texte = texteTrime;
             }
@@ -361,7 +361,7 @@ namespace tp2_partie1
 
                 if ((this.Type == CarteType.Minion) && ((value < 1) || (value > 15)))
                     throw new ArgumentOutOfRangeException("La vie doit être entre 1 et 15, inclusivement. et le type doit être un serviteur");
-        
+
                 // La vie prévue est valide; on la conserve dans l'attribut. 
                 this._vie = value;
             }
@@ -412,10 +412,10 @@ namespace tp2_partie1
                 // Note : Si on veut un tri en ordre décroissant d'id, il faut multiplier par -1.
                 return resComp;
             }
-                // Les deux carte ont le même Identifiant.
-                // Le deuxième critère de tri est le nom (insensible à la case et aux accents).
-                return String.Compare(this.Nom, autreCarte.Nom, CultureInfo.CurrentCulture,
-                    CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace);
+            // Les deux carte ont le même Identifiant.
+            // Le deuxième critère de tri est le nom (insensible à la case et aux accents).
+            return String.Compare(this.Nom, autreCarte.Nom, CultureInfo.CurrentCulture,
+                CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace);
         }
 
         /// <summary>

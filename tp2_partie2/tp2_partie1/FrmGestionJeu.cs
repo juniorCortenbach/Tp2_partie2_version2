@@ -49,7 +49,7 @@ namespace tp2_partie1
 
         private HearthstoneData _gestion;
 
-       
+        private Carte[] _lesCartes;
 
         #endregion
 
@@ -64,7 +64,12 @@ namespace tp2_partie1
             set { this._affichageSelectionner = value; }
         }
 
-        
+        public Carte[] LesCartes
+        {
+            get { return this._lesCartes; }
+            set { this._lesCartes = value; }
+        }
+
         #endregion
 
 
@@ -85,7 +90,6 @@ namespace tp2_partie1
             
             HearthstoneData data = new HearthstoneData();
             this._gestion = new HearthstoneData();
-            this.lstPourTest.Items.Add(this._gestion.LesCartes[3]);
 
             //for (int i = 0; i < 100; i++)
             //{
