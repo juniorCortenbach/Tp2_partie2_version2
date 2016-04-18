@@ -412,7 +412,7 @@ namespace tp2_partie1
                 // Note : Si on veut un tri en ordre décroissant d'id, il faut multiplier par -1.
                 return resComp;
             }
-            // Les deux carte ont le même Identifiant.
+            // Les deux carte ont le même identifiant.
             // Le deuxième critère de tri est le nom (insensible à la case et aux accents).
             return String.Compare(this.Nom, autreCarte.Nom, CultureInfo.CurrentCulture,
                 CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace);
