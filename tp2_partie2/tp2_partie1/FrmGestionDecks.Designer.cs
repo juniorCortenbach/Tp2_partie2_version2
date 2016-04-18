@@ -161,6 +161,7 @@
             this.imgDeck.Size = new System.Drawing.Size(450, 340);
             this.imgDeck.TabIndex = 12;
             this.imgDeck.TabStop = false;
+            this.imgDeck.Click += new System.EventHandler(this.imgDeck_Click);
             // 
             // tblDeck
             // 

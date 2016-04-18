@@ -202,6 +202,8 @@ namespace tp2_partie1
 
         #endregion
 
+
+
         #region CHARGERCARTES
 
         /// <summary>
@@ -564,7 +566,7 @@ namespace tp2_partie1
 
         
         /*
-        public static Deck[] ChargerDeck(string cheminFichier, HearthstoneData hData)
+        public static Deck ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
 
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
@@ -574,16 +576,14 @@ namespace tp2_partie1
             xmlDoc.Load(cheminFichier);
 
             XmlNodeList listeElmeDeck = xmlDoc.GetElementsByTagName("card");
+                
 
-            Deck[] tabDeck = new Deck[listeElmeDeck.Count];
+            //Trouver id et quantitÉ avec boucle for
 
-            Carte[] deckCharge = Utilitaire.ChargerCartes(cheminFichier);
-            Utilitaire.ChargerHeros(cheminFichier);
+    
+            Deck unDeck = new Deck(nom,heros);
 
-
-            return tabDeck;
-
-
+            return unDeck;
 
         }*/
 

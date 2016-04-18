@@ -352,11 +352,10 @@ namespace TestsUnitaires
                 // du dossier du projet pour les tests.
                 // De plus, exécutez le test de chargement qui lui est associé, soit "TestChargerDeck2".
             }
-        
+        /*
             // ChargerDeck
             // ===========
 
-        /*
             /// <summary>
             /// Tests unitaires pour la méthode "ChargerDeck".
             /// </summary>

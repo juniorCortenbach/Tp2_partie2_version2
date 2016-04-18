@@ -65,7 +65,7 @@ namespace tp2_partie1
             //Boucle qui affiche les cartes
             for (int z = 0; z < this._gestion.LesCartes.Length; z++)
             {
-                this.cmbCartes.Items.Add(this._gestion.LesCartes[z]);
+                this.cmbCartes.Items.Add(this._gestion.LesCartes[z].Nom);
             }
 
             //Retrait de l'image et du tableau du deck du formulaire.
@@ -117,6 +117,7 @@ namespace tp2_partie1
             this.imgDeck.Hide();
             //Joue du son.
             this._s.Play(); 
+
         }
 
         /// <summary>
@@ -167,6 +168,11 @@ namespace tp2_partie1
         {
             //Joue du son lorsque la touche est appuyée.
             this._keyPressedSound.Play(); 
+        }
+
+        private void imgDeck_Click(object sender, EventArgs e)
+        {
+
         }
 
     

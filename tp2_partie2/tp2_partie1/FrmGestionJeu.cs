@@ -161,5 +161,10 @@ namespace tp2_partie1
         {
    
         }
+
+        private void imgCartes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

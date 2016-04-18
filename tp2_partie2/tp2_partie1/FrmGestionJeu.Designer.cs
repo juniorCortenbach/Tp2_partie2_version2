@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGestionJeu));
             this.tblCarte = new System.Windows.Forms.DataGridView();
             this.nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -114,6 +113,7 @@
             this.imgCartes.Size = new System.Drawing.Size(450, 340);
             this.imgCartes.TabIndex = 4;
             this.imgCartes.TabStop = false;
+            this.imgCartes.Click += new System.EventHandler(this.imgCartes_Click);
             // 
             // btnCréer
             // 
@@ -161,7 +161,7 @@
             // lstPourTest
             // 
             this.lstPourTest.FormattingEnabled = true;
-            this.lstPourTest.Location = new System.Drawing.Point(323, 71);
+            this.lstPourTest.Location = new System.Drawing.Point(300, 71);
             this.lstPourTest.Name = "lstPourTest";
             this.lstPourTest.Size = new System.Drawing.Size(450, 342);
             this.lstPourTest.TabIndex = 9;
@@ -171,6 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::tp2_partie1.Properties.Resources.FondDuFormulaire1;
             this.ClientSize = new System.Drawing.Size(974, 532);
             this.Controls.Add(this.lstPourTest);
             this.Controls.Add(this.lblTitreJeu);
