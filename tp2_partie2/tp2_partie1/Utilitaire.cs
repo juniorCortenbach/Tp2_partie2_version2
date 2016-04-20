@@ -213,15 +213,15 @@ namespace tp2_partie1
             if (cheminFichier.Trim() == "")
                 throw new ArgumentException("Le nom du fichier est invalide.");
 
-            byte nbrUnderscore=0;
-            for (int i = 0; i < cheminFichier.Length-1; i++)
+            byte nbrUnderscore = 0;
+            for (int i = 0; i < cheminFichier.Length - 1; i++)
             {
                 if (cheminFichier[i] == '_')
                     nbrUnderscore++;
             }
-            if(nbrUnderscore == 1)
+            if (nbrUnderscore == 1)
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
-            if(nbrUnderscore > 1)
+            if (nbrUnderscore > 1)
                 throw new XmlException("Le fichier n'est pas un fichier XML valide.");
 
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
@@ -422,7 +422,7 @@ namespace tp2_partie1
                             (CarteMecanique)Enum.Parse(typeof(CarteMecanique), chaineFormater));
                     }
                 }
-                
+
 
             }
             Console.Write(tabCartes);
@@ -497,7 +497,7 @@ namespace tp2_partie1
                 elemVie.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Vie.ToString();
 
                 elemCout = xmlDoc.CreateElement("cost");
-                elemVie.InnerText =  deckEnregistrer.LstCartesAvecQt[i].Carte.Cout.ToString();
+                elemVie.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Cout.ToString();
 
                 elemExtension = xmlDoc.CreateElement("set");
                 elemExtension.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Extension.ToString();
@@ -538,13 +538,13 @@ namespace tp2_partie1
                 elemCarte.AppendChild(elemRace);
                 elemCarte.AppendChild(elemType);
 
-           
+
 
                 //Ajout de l'élément "Carte" à l'élément "listeCartes".
                 elemListeCartes.AppendChild(elemCarte);
             }
 
-           
+
 
             //Enregistrement du document XML dans un fichier par sérialisation.
             xmlDoc.Save(cheminFichier);
@@ -555,7 +555,7 @@ namespace tp2_partie1
 
         #region CHARGERDECK
 
-        
+
         /*
         public static Deck ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
