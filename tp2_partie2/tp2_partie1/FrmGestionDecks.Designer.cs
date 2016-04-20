@@ -156,7 +156,7 @@
             // 
             // imgDeck
             // 
-            this.imgDeck.Location = new System.Drawing.Point(335, 76);
+            this.imgDeck.Location = new System.Drawing.Point(121, 116);
             this.imgDeck.Name = "imgDeck";
             this.imgDeck.Size = new System.Drawing.Size(450, 340);
             this.imgDeck.TabIndex = 12;
@@ -220,7 +220,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::tp2_partie1.Properties.Resources.FondDuFormulaire1;
             this.ClientSize = new System.Drawing.Size(1103, 532);
             this.Controls.Add(this.lblGestionCartes);
             this.Controls.Add(this.cmbCartes);
