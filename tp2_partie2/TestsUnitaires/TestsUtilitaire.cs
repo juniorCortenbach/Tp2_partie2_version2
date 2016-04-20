@@ -352,7 +352,7 @@ namespace TestsUnitaires
                 // du dossier du projet pour les tests.
                 // De plus, exécutez le test de chargement qui lui est associé, soit "TestChargerDeck2".
             }
-        /*
+
             // ChargerDeck
             // ===========
 
@@ -460,7 +460,7 @@ namespace TestsUnitaires
 
                 // ReSharper disable once UnusedVariable
                 Deck deckCharge = Utilitaire.ChargerDeck(nomFichierDeck, new HearthstoneData());
-            } */
+            }
 
         #endregion
     }

@@ -87,12 +87,84 @@ namespace tp2_partie1
         /// insensible à la casse et aux accents).
         /// </summary>
         /// <param name="?"></param>
-        public Carte RechercherCartes(CarteType type, String nomPartiel, List<CarteExtension> extensions, CarteRarete rarete,
-            sbyte coutMin,sbyte coutMax, string textePartiel,HerosClasse classe, List<CarteMecanique> mecaniques, 
+        public List<Carte> RechercherCartes(CarteType type, String nomPartiel, List<CarteExtension> lstExtensions, CarteRarete rarete,
+            sbyte coutMin,sbyte coutMax, string textePartiel,HerosClasse classe, List<CarteMecanique> lstMecaniques, 
             sbyte attaqueMin, sbyte attaqueMax, sbyte vieMin, sbyte vieMax,ServiteurRace race, sbyte durabiliteMin,
             sbyte durabiliteMax)
         {
-            return null;
+            bool typeCorrespondACarte = false;
+            bool nomCorrespondACarte = false;
+            bool extensionCorrespondACarte = false;
+            bool rareteCorrespondACarte = false;
+            bool coutMinCorrespondACarte = false;
+            bool coutMaxCorrespondACarte = false;
+            bool texteCorrespondACarte = false;
+            bool classeCorrespondACarte = false;
+            bool mecaniqueCorrespondACarte = false;
+            bool attaqueMinCorrespondACarte = false;
+            bool attaqueMaxCorrespondACarte = false;
+            bool vieMinCorrespondACarte = false;
+            bool vieMaxCorrespondACarte = false;
+            bool raceCorrespondACarte = false;
+            bool durabiliteMinCorrespondACarte = false;
+            bool durabiliteMaxCorrespondACarte = false;
+            List<Carte> lstCartesTrouvees = null;
+
+            for (int i = 0; i < this.LesCartes.Length; i++)
+            {
+                //Vérification de correspondance entre le type donné
+                //et le type de la carte.
+                if (this.LesCartes[i].Type == type)
+                {
+                    typeCorrespondACarte = true;
+                }
+
+                //Vérification de correspondance entre le nom donné
+                //et le nom de la carte.
+                if (this.LesCartes[i].Nom == nomPartiel)
+                {
+                    nomCorrespondACarte = true;
+                } 
+
+                //Boucle de vérification de correspondance
+                //entre les extensions données et l'extension de la carte.
+                for (int j = 0; j < lstExtensions.Count; j++)
+                {
+                    if (this.LesCartes[i].Extension ==  lstExtensions[j])
+                    {
+                        extensionCorrespondACarte = true;
+                    }
+                }
+
+                //Boucle de vérification de correspondance 
+                //à la liste mécanique d'une carte lue.
+                for (int j = 0; j < lstMecaniques.Count; j++)
+                {
+                    //Pour les listes mécaniques de la carte lue...
+                    for (int k = 0; k < this.LesCartes[i].LstMeca.Count; k++)
+                    {
+                        //Si la mécanique lue de la carte lue correspond à la mécanique lue de la liste de mécaniques.
+                        //La mécanique correspond.
+                        if (this.LesCartes[i].LstMeca[k] == lstMecaniques[j])
+                        {
+                            mecaniqueCorrespondACarte = true;
+                        }
+
+                    }
+                }
+
+                //Vérification de correspondance entre le cout min. donné
+                //et le coût min. de la carte.
+                if (this.LesCartes[i].Cout >= coutMin)
+                {
+                    coutMinCorrespondACarte = true;
+                } 
+
+                //Si tous les éléments données correspondent aux éléments de la carte lue,
+                //La carte lue est ajouté aux résultats de recherche.
+                if(typeCorrespondACarte && nomCorrespondACarte && extensionCorrespondACarte)
+                    lstCartesTrouvees.Add(this.LesCartes[i]);
+            }
         }
 
         /// <summary>

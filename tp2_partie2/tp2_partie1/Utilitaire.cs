@@ -480,14 +480,14 @@ namespace tp2_partie1
                  elemRace, elemType, elemCarte;
 
             //Traitement de chaque objet "Carte" du tableau.
-            for (int i = 0; i < deckEnregistrer.NbTotalCartes; i++)
+            for (int i = 0; i < deckEnregistrer.NbTotalCartes-1; i++)
             {
                 //Création de l'élément "Carte" (ainsi que de son contenu) pour le deck.
                 elemCarte = xmlDoc.CreateElement("card");
 
 
-                elemDurabilite = xmlDoc.CreateElement("durability");
-                elemDurabilite.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Durabilite.ToString();
+               elemDurabilite = xmlDoc.CreateElement("durability");
+               elemDurabilite.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Durabilite.ToString();
 
                 elemAttaque = xmlDoc.CreateElement("attack");
                 elemAttaque.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Attaque.ToString();
@@ -555,8 +555,12 @@ namespace tp2_partie1
 
         #region CHARGERDECK
 
-
-        /*
+        /// <summary>
+        /// </summary>
+        /// <param name="cheminFichier"></param>
+        /// <param name="hData"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static Deck ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
 
@@ -566,14 +570,14 @@ namespace tp2_partie1
                 throw new ArgumentNullException("Le nom du fichier ne doit pas être nul.");
             xmlDoc.Load(cheminFichier);
 
-            XmlNodeList listeElemDeck = xmlDoc.GetElementsByTagName("card");
+            XmlNodeList listeElemDeck = xmlDoc.SelectNodes("/cards/card[type='HERO']");;
 
             // Création du tableau de cartes; la taille est déterminée par le nombre d'éléments "Heros".
             Heros[] tabDecks = new Heros[listeElemDeck.Count];
 
             // Variables utilitaires pour la création d'un objet "Carte".
-            string nomDeck;
-            Heros herosDeck;
+            string nomDeck = "";
+            Heros herosDeck = null;
             XmlElement elemDeck;
 
             //Trouver id et quantitÉ avec boucle for
@@ -584,24 +588,30 @@ namespace tp2_partie1
                 elemDeck = (XmlElement)listeElemDeck[d];
 
 
-                if (elemDeck.GetElementsByTagName("nom").Count != 0)
-                {
-                    nomDeck = elemDeck.GetElementsByTagName("id")[0].InnerText;
-                }
-                else
-                {
-                    nomDeck = "";
-                }
-       
+                //if (elemDeck.GetElementsByTagName("name").Count != 0)
+                //{
+                //    nomDeck = elemDeck.GetElementsByTagName("name")[0].InnerText;
+                //}
+                //else
+                //{
+                //    nomDeck = "";
+                //}
+                //if()
+                //{
+                
+                //}
+                //       else
+                //{
+                   
+                //}
+
             }
-
-
 
             Deck unDeck = new Deck(nomDeck,herosDeck);
 
             return unDeck;
 
-        } */
+        } 
 
         #endregion
 

@@ -120,7 +120,7 @@ namespace TestsUnitaires
             Assert.IsNull(hData.RechercherCarteParId(null));
         }
 
-        /*
+        
         /// <summary>
         /// Tests unitaires pour la méthode "RechercherCartes".
         /// </summary>
@@ -496,7 +496,7 @@ namespace TestsUnitaires
             Assert.AreEqual("GVG_043", lstCartesTrouvees[0].Id);
             Assert.AreEqual("EX1_247", lstCartesTrouvees[1].Id);
             Assert.AreEqual("GVG_054", lstCartesTrouvees[2].Id);
-        } */
+        } 
 
         #endregion
 
