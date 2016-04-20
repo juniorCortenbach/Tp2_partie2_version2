@@ -400,11 +400,11 @@ namespace tp2_partie1
         /// <returns></returns>
         public int CompareTo(Carte autreCarte)
         {
-            // Le premier critère de tri est l'id des cartes.
+            // Le premier critère de tri est le coût des cartes.
             // Note : "CompareTo" est déjà définie pour des nombres.
-            int resComp = this.Id.CompareTo(autreCarte.Id);
+            int resComp = this.Cout.CompareTo(autreCarte.Cout);
 
-            // Est-ce que les identifiants sont différents ?
+            // Est-ce que les coûts sont différents ?
             if (resComp != 0)
             {
                 // Id différents.

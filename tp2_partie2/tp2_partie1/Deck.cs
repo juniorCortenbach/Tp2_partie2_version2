@@ -145,41 +145,34 @@ namespace tp2_partie1
         public void AjouterCartes(Carte carteAjoutee, byte nbCopies)
         {
             bool carteDejaPresente = false;
-            byte nbCartesLegendaires = 0;
-
-            //for (int i = 0; i < this.NbTotalCartes; i++)
-            //{
-            //    if (carteAjoutee.Rarete = this.LstCartesAvecQt[i].Carte)
-            //        nbCartesLegendaires++;
-            //}
+            byte nbTotalCopies = 1;
 
             if (carteAjoutee == null)
                 throw new ArgumentNullException("La carte ne doit pas être nulle.");
 
+            for (int i = 0; i < this.LstCartesAvecQt.Count; i++)
+            {
+                if (this.LstCartesAvecQt[i].Carte.CompareTo(carteAjoutee) == 0)
+                    carteDejaPresente = true;
+                    nbTotalCopies++;
+            }
+
             if (nbCopies < 1)
                 throw new ArgumentOutOfRangeException("Le nombre de copies d'une carte doit être d'au moins 1.");
-            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies > 2))
+            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbTotalCopies > 2))
                 throw new ArgumentOutOfRangeException("Le nombre total de copies d'une carte non légendaire doit être d'au plus 2.");
-            if ((carteAjoutee.Rarete == CarteRarete.Legendary) && (nbCopies != 1))
-                throw new ArgumentOutOfRangeException("Le nombre maximal de copies d'une carte légendaire doit être de 1.");
-            if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies > 1))
+            if ((carteAjoutee.Rarete == CarteRarete.Legendary) && (nbTotalCopies < 1))
+                throw new ArgumentOutOfRangeException("Le nombre minimale de copies d'une carte légendaire doit être de 1.");
+            if ((carteAjoutee.Rarete == CarteRarete.Legendary) && (nbTotalCopies > 1))
                 throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
-            //if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbCopies < 2))
+            //if ((carteAjoutee.Rarete != CarteRarete.Legendary) && (nbTotalCopies > 1))
                 //throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
-            if (nbCartesLegendaires > 1)
-                throw new InvalidOperationException("Le nombre total de copies d'une carte légendaire doit être d'au plus 1.");
 
             if (this.NbTotalCartes == Deck.NbMaxCartesDansDeck)
                 throw new ArgumentException("La quantité de cartes présentes dans le deck ne peut pas dépasser 30.");
 
             if (carteAjoutee.Classe != this.Heros.Classe && carteAjoutee.Classe != HerosClasse.Neutre)
                 throw new ArgumentException("La carte ne peut pas être ajoutée au deck car elle ne possède pas la bonne classe.");
-
-            for (int i = 0; i < this.LstCartesAvecQt.Count; i++)
-            {
-                if (this.LstCartesAvecQt[i].Carte.CompareTo(carteAjoutee) == 0)
-                    carteDejaPresente = true;
-            }
 
             if (nbCopies > 1)
             {
