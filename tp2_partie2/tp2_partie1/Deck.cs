@@ -141,11 +141,12 @@ namespace tp2_partie1
         #endregion
 
         #region MÉTHODES
-
+        int indiceCarteDansLst = 0;
         public void AjouterCartes(Carte carteAjoutee, byte nbCopies)
         {
             bool carteDejaPresente = false;
             byte nbTotalCopies = 1;
+
 
             if (carteAjoutee == null)
                 throw new ArgumentNullException("La carte ne doit pas être nulle.");
@@ -153,8 +154,11 @@ namespace tp2_partie1
             for (int i = 0; i < this.LstCartesAvecQt.Count; i++)
             {
                 if (this.LstCartesAvecQt[i].Carte.CompareTo(carteAjoutee) == 0)
+                {
                     carteDejaPresente = true;
+                    this.indiceCarteDansLst = i;
                     nbTotalCopies++;
+                }
             }
 
             if (nbCopies < 1)
@@ -181,18 +185,21 @@ namespace tp2_partie1
                     carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe,
                     carteAjoutee.Attaque,
                     carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
-                //nbCopies++;
-                if (!carteDejaPresente)
+
+                if (carteDejaPresente)
+                    this.LstCartesAvecQt[this.indiceCarteDansLst].Qt++;
+                if(!carteDejaPresente)
+                {
                     this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 1));
-                    
+                    carteDejaPresente = true;
+                }
                 Carte secondeNouvelleCarte = new Carte(carteAjoutee.Type, carteAjoutee.Id, carteAjoutee.Nom,
                     carteAjoutee.Extension,
                     carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe,
                     carteAjoutee.Attaque,
                     carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
-                //nbCopies++;
-                if (!carteDejaPresente)
-                this.LstCartesAvecQt.Add(new DeckEntree(secondeNouvelleCarte, 2));
+
+                    this.LstCartesAvecQt[this.indiceCarteDansLst].Qt++;
 
             }
             else
@@ -202,13 +209,15 @@ namespace tp2_partie1
                     carteAjoutee.Rarete, carteAjoutee.Cout, carteAjoutee.Texte, carteAjoutee.Classe,
                     carteAjoutee.Attaque,
                     carteAjoutee.Vie, carteAjoutee.Race, carteAjoutee.Durabilite);
-                //nbCopies++;
-                if(!carteDejaPresente)
-                this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 1));
+
+                if (carteDejaPresente)
+                    this.LstCartesAvecQt[this.indiceCarteDansLst].Qt++;
+                if (!carteDejaPresente)
+                    this.LstCartesAvecQt.Add(new DeckEntree(nouvelleCarte, 1));
 
             }
 
-            int testCount = this.LstCartesAvecQt.Count;
+            //int testCount = this.LstCartesAvecQt.Count;
             this.NbTotalCartes += nbCopies;
         }
 
@@ -252,7 +261,7 @@ namespace tp2_partie1
                     carteTrouve = false;
 
                     i++;
-                } while (i <= this.LstCartesAvecQt.Count-1 || !carteTrouve);
+                } while (i <= this.LstCartesAvecQt[this.indiceCarteDansLst].Qt-1 || !carteTrouve);
             }
 
             return quantiteCarte;

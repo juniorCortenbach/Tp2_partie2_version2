@@ -40,7 +40,7 @@ namespace tp2_partie1
         public static Heros[] ChargerHeros(String cheminFichier)
         {
             if (cheminFichier == null)
-                throw new ArgumentNullException(null, "Le nom du fichier ne doit pas être nul.");
+                throw new ArgumentNullException("Le nom du fichier ne doit pas être nul.");
             if (cheminFichier.Length <= 1)
                 throw new ArgumentException(null, "Le nom du fichier est invalide.");
             if (cheminFichier.Length > 100)
@@ -49,11 +49,6 @@ namespace tp2_partie1
             if (System.Text.RegularExpressions.Regex.IsMatch(cheminFichier, "^[a-zA-Z0-9]_[a-zA-Z0-9]+$"))
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
 
-            //for (int i = 0; i < cheminFichier.Length - 1; i++)
-            //{
-            //    if (cheminFichier[i] == '_')
-            //        throw new ArgumentException("Impossible d'ouvrir le fichier XML.");
-            //}
 
             for (int i = 0; i < cheminFichier.Length - 1; i++)
             {
@@ -109,15 +104,11 @@ namespace tp2_partie1
             string nom;
             CarteRarete rarete;
             byte vie;
-            XmlElement elemHeros = null;
+            XmlElement elemHeros;
 
 
             for (int i = 0; i < listeElemHeros.Count; i++)
             {
-                // Récupération du noeud "Heros" à traiter.
-                //elemHeros = (XmlElement)listeElemHeros[i];
-
-
                 // Récupération du noeud "Heros" à traiter.
                 elemHeros = (XmlElement)listeElemHeros[i];
 
@@ -222,15 +213,15 @@ namespace tp2_partie1
             if (cheminFichier.Trim() == "")
                 throw new ArgumentException("Le nom du fichier est invalide.");
 
-            byte nbrUnderscore=0;
-            for (int i = 0; i < cheminFichier.Length-1; i++)
+            byte nbrUnderscore = 0;
+            for (int i = 0; i < cheminFichier.Length - 1; i++)
             {
                 if (cheminFichier[i] == '_')
                     nbrUnderscore++;
             }
-            if(nbrUnderscore == 1)
+            if (nbrUnderscore == 1)
                 throw new ArgumentException("Le chemin pour accéder au fichier est invalide.");
-            if(nbrUnderscore > 1)
+            if (nbrUnderscore > 1)
                 throw new XmlException("Le fichier n'est pas un fichier XML valide.");
 
             // Création d'un document XML (un objet .NET) à partir du fichier au format XML (désérialisation).
@@ -431,7 +422,7 @@ namespace tp2_partie1
                             (CarteMecanique)Enum.Parse(typeof(CarteMecanique), chaineFormater));
                     }
                 }
-                
+
 
             }
             Console.Write(tabCartes);
@@ -506,7 +497,7 @@ namespace tp2_partie1
                 elemVie.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Vie.ToString();
 
                 elemCout = xmlDoc.CreateElement("cost");
-                elemVie.InnerText =  deckEnregistrer.LstCartesAvecQt[i].Carte.Cout.ToString();
+                elemVie.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Cout.ToString();
 
                 elemExtension = xmlDoc.CreateElement("set");
                 elemExtension.InnerText = deckEnregistrer.LstCartesAvecQt[i].Carte.Extension.ToString();
@@ -547,13 +538,13 @@ namespace tp2_partie1
                 elemCarte.AppendChild(elemRace);
                 elemCarte.AppendChild(elemType);
 
-           
+
 
                 //Ajout de l'élément "Carte" à l'élément "listeCartes".
                 elemListeCartes.AppendChild(elemCarte);
             }
 
-           
+
 
             //Enregistrement du document XML dans un fichier par sérialisation.
             xmlDoc.Save(cheminFichier);
@@ -564,7 +555,7 @@ namespace tp2_partie1
 
         #region CHARGERDECK
 
-        
+
         /*
         public static Deck ChargerDeck(string cheminFichier, HearthstoneData hData)
         {
@@ -575,17 +566,42 @@ namespace tp2_partie1
                 throw new ArgumentNullException("Le nom du fichier ne doit pas être nul.");
             xmlDoc.Load(cheminFichier);
 
-            XmlNodeList listeElmeDeck = xmlDoc.GetElementsByTagName("card");
-                
+            XmlNodeList listeElemDeck = xmlDoc.GetElementsByTagName("card");
+
+            // Création du tableau de cartes; la taille est déterminée par le nombre d'éléments "Heros".
+            Heros[] tabDecks = new Heros[listeElemDeck.Count];
+
+            // Variables utilitaires pour la création d'un objet "Carte".
+            string nomDeck;
+            Heros herosDeck;
+            XmlElement elemDeck;
 
             //Trouver id et quantitÉ avec boucle for
 
-    
-            Deck unDeck = new Deck(nom,heros);
+            for (int d=0; d<Deck.NbMaxCartesDansDeck; d++)
+            {
+                // Récupération du noeud "Heros" à traiter.
+                elemDeck = (XmlElement)listeElemDeck[d];
+
+
+                if (elemDeck.GetElementsByTagName("nom").Count != 0)
+                {
+                    nomDeck = elemDeck.GetElementsByTagName("id")[0].InnerText;
+                }
+                else
+                {
+                    nomDeck = "";
+                }
+       
+            }
+
+
+
+            Deck unDeck = new Deck(nomDeck,herosDeck);
 
             return unDeck;
 
-        }*/
+        } */
 
         #endregion
 

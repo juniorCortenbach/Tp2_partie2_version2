@@ -407,9 +407,9 @@ namespace tp2_partie1
             // Est-ce que les coûts sont différents ?
             if (resComp != 0)
             {
-                // Id différents.
+                // Coûts différents.
                 // On retourne le résultat de la comparaison.
-                // Note : Si on veut un tri en ordre décroissant d'id, il faut multiplier par -1.
+                // Note : Si on veut un tri en ordre décroissant du coût, il faut multiplier par -1.
                 return resComp;
             }
             // Les deux carte ont le même identifiant.
